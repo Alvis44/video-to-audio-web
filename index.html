@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video → Audio Converter</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='12' fill='%236c63ff'/%3E%3Cpath d='M11 6v7.55A3 3 0 1 0 13 16V9h3V6h-5z' fill='white'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <h1>🎬 → 🎵</h1>
+      <p class="subtitle">Конвертация видео в аудио — прямо в браузере</p>
+      <p class="hint">Все файлы обрабатываются локально. Ничего не загружается на сервер.</p>
+      <p class="hint">Максимальный размер файла — 2 ГБ (ограничение браузера)</p>
+    </header>
+
+    <!-- Status bar -->
+    <div id="status-bar" class="status-bar hidden">
+      <span id="status-text">Загрузка FFmpeg…</span>
+      <div class="spinner" id="spinner"></div>
+    </div>
+
+    <!-- Drop zone -->
+    <div id="dropzone" class="dropzone">
+      <div class="dropzone-icon">📂</div>
+      <p class="dropzone-title">Перетащите видео сюда</p>
+      <p class="dropzone-sub">или нажмите, чтобы выбрать файл</p>
+      <input type="file" id="file-input" accept="video/*" hidden />
+    </div>
+
+    <!-- File info -->
+    <div id="file-info" class="file-info hidden">
+      <div class="file-name" id="file-name"></div>
+      <div class="file-size" id="file-size"></div>
+    </div>
+
+    <!-- Format selector -->
+    <div id="format-section" class="format-section hidden">
+      <label for="format-select">Формат:</label>
+      <select id="format-select">
+        <option value="mp3" selected>MP3</option>
+        <option value="wav">WAV</option>
+        <option value="aac">AAC (M4A)</option>
+        <option value="ogg">OGG Vorbis</option>
+        <option value="flac">FLAC</option>
+      </select>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress-section" class="progress-section hidden">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <p class="progress-text" id="progress-text">0%</p>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button id="btn-convert" class="btn btn-primary" disabled>▶ Конвертировать</button>
+      <button id="btn-download" class="btn btn-success hidden">⬇ Скачать файл</button>
+    </div>
+
+    <!-- Notifications toggle -->
+    <div class="toggle-row" id="notify-section">
+      <label class="toggle-label">
+        <input type="checkbox" id="notify-sound" checked />
+        <span class="toggle-switch"></span>
+        <span>Звук при завершении</span>
+      </label>
+      <label class="toggle-label">
+        <input type="checkbox" id="notify-push" />
+        <span class="toggle-switch"></span>
+        <span>Уведомление в браузере</span>
+      </label>
+    </div>
+
+    <!-- Log -->
+    <details class="log-section">
+      <summary>Лог FFmpeg</summary>
+      <pre id="log"></pre>
+    </details>
+
+    <footer class="footer">
+      Работает на <a href="https://github.com/ffmpegwasm/ffmpeg.wasm" target="_blank" rel="noopener noreferrer">ffmpeg.wasm</a> · Вся обработка на вашем устройстве<br>
+      <span class="footer-links">
+        <a href="https://github.com/Alvis44" target="_blank">👤 Автор</a>
+        <span class="sep">·</span>
+        <a href="https://pay.cloudtips.ru/p/cd42a9bf" target="_blank">☕ Угостить кофе</a>
+      </span>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
